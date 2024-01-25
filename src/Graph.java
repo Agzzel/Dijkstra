@@ -1,3 +1,6 @@
+/*
+A simple implementation of a graph data structure.
+ */
 import java.util.*;
 
 public class Graph {
@@ -16,13 +19,12 @@ public class Graph {
         Set<Node> visited = new HashSet<>();
         Set<Node> unvisited = new HashSet<>();
 
-        unvisited.add(startNode);
+        unvisited.add(startNode);//the algorithm will evaluate startNode first
 
-        while(unvisited.size() != 0){// så länge det finns obesökta noder
+        while(unvisited.size() != 0){
             Node currentNode = getNodeWithLowestDistance(unvisited);
             unvisited.remove(currentNode);
 
-            //för varje granne (nod med vikt) till current
             for(Map.Entry<Node,Integer> adjacencyPair : currentNode.getAdjacentNodes().entrySet()){
                 Node adjacentNode = adjacencyPair.getKey();
                 Integer edgeWeight = adjacencyPair.getValue();
@@ -30,7 +32,7 @@ public class Graph {
                 if(!visited.contains(adjacentNode)){
                     calculateDistance(adjacentNode,edgeWeight,currentNode);
                     unvisited.add(adjacentNode);
-                    //denna grann-nod läggs in i unvisited och kommer besökas senare
+
                 }
             }
             visited.add(currentNode);
@@ -39,7 +41,7 @@ public class Graph {
     }
 
     private static Node getNodeWithLowestDistance(Set<Node> unvisitedNodes){
-        Node lowestDistanceNode = null; // noden med den lägsta distansen från start är okänd
+        Node lowestDistanceNode = null;
         int lowestDistance = Integer.MAX_VALUE;
         for(Node n : unvisitedNodes){
             int nodeDistance = n.getDistance();

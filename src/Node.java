@@ -1,10 +1,17 @@
+/*
+A class for the nodes that are used in the graph. There is no class for edges, instead each
+node has a hashmap containing its neighbours.
+ */
 import java.util.*;
 
 public class Node {
     private final String name;
 
     private List<Node> shortestPath = new LinkedList<>();
+    //the shortest path from the start to each node
     private Integer distance = Integer.MAX_VALUE;
+    //the distance from the source to each node is initially unknown,
+    //so every node has a distance of infinity at the start.
     private Map<Node, Integer> adjacentNodes = new HashMap<>();
 
     public Node(String n){
@@ -17,6 +24,7 @@ public class Node {
 
     public void addDestination(Node destination, int distance){
         adjacentNodes.put(destination,distance);
+        //adds a neighbour to this node
     }
 
     public Integer getDistance(){
